@@ -3,18 +3,11 @@
 A console application which will show a list of options (as menu items) with a number associated to each option.
 It should ask user to enter one of the associated numbers.
 
-You can test application by downloading [jar](./assets/P02.jar) file and running the following command:
+You can test application by downloading [jar](./assets/menu.jar) file and running the following command:
 ```
-java -jar P02.jar
+java -jar menu.jar
 ```
 ![Menu](./assets/cli.png)
-
-this application is written with JAVA 13:
-```
-java version "13.0.1" 2019-10-15
-Java(TM) SE Runtime Environment (build 13.0.1+9)
-Java HotSpot(TM) 64-Bit Server VM (build 13.0.1+9, mixed mode, sharing)
-```
 
 ## Acceptance Criteria
 - User can select a number that associated to menu items and see a message "You selected menu number #".
