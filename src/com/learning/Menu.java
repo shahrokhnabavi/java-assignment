@@ -2,9 +2,13 @@ package com.learning;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Menu {
+    private static final int ADD = 1;
+    private static final int EDIT = 2;
+    private static final int REMOVE = 3;
+    private static final int EXIT = 4;
+
     private static final List<String> items = new ArrayList<String>(
         List.of(
             "[1] ADD new user.",
@@ -15,61 +19,52 @@ public class Menu {
     );
 
     public void execute() {
-        int selectedItem = 1;
+        int action = 1;
         do {
-            this.clearConsole();
-            System.out.println("Welcome to user management Application.\n");
+            Console.clear();
+            Console.out("Welcome to user management Application.", 0, 2);
 
-            if (selectedItem < 1 || selectedItem > Menu.items.size()) {
-                System.out.println("Number should be between 1 - " + Menu.items.size());
-            }
+            this.render();
+            action = this.readAction();
 
-            selectedItem = this.render();
-            this.operate(selectedItem);
-        } while (selectedItem != 4);
+            this.handleAction(action);
+        } while (action != 4);
 
-        System.out.println("\nThank you for using our Application.");
+        Console.out("Thank you for using our Application.", 1, 1);
     }
 
-    private void operate(int selectedItem) {
-        switch (selectedItem) {
-            case 1:
-                System.out.println("\n*We should do operation to add new user in our database*");
-                this.pressAnyKey();
-                break;
-            case 2:
-                System.out.println("\n*We should update user information in our database*");
-                this.pressAnyKey();
-                break;
-            case 3:
-                System.out.println("\n*User is not needed we can remove user from our database*");
-                this.pressAnyKey();
-                break;
+    private int readAction() {
+        int action = Console.getNumber("Please select your action? ");
+
+        if (action < 1 || action > Menu.items.size()) {
+            Console.out("Action number should be between 1 - " + Menu.items.size() + ", ");
+            action = this.readAction();
         }
+
+        return action;
     }
 
-    private int render() {
+    private void handleAction(int action) {
+        switch (action) {
+            case Menu.ADD:
+                Console.out("*We should do operation to add new user in our database*", 1, 1);
+                break;
+            case Menu.EDIT:
+                Console.out("*We should update user information in our database*", 1, 1);
+                break;
+            case Menu.REMOVE:
+                Console.out("*User is not needed we can remove user from our database*", 1, 1);
+                break;
+            case Menu.EXIT:
+                return;
+        }
+
+        Console.pressEnterToContinue();
+    }
+
+    private void render() {
         for (String item : Menu.items) {
-            System.out.println(item);
+            Console.out(item, 0, 1);
         }
-        System.out.print("Please select your action? ");
-
-        Scanner scanner = new Scanner(System.in);
-
-        return scanner.nextInt();
-    }
-
-    private void pressAnyKey() {
-        try {
-            System.out.println("Press any key to continue.");
-            System.in.read();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void clearConsole(){
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
     }
 }
