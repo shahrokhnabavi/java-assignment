@@ -3,23 +3,20 @@ package com.learning;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Menu {
+final public class Menu {
     private static final int ADD = 1;
     private static final int EDIT = 2;
     private static final int REMOVE = 3;
     private static final int EXIT = 4;
 
-    private static final List<String> items = new ArrayList<String>(
-        List.of(
-            "[1] ADD new user.",
-            "[2] EDIT user.",
-            "[3] REMOVE user.",
-            "[4] Exit."
-        )
-    );
+    private final List<String> items;
+
+    public Menu(List<String> items) {
+        this.items = items;
+    }
 
     public void execute() {
-        int action = 1;
+        int action;
         do {
             Console.clear();
             Console.out("Welcome to user management Application.", 0, 2);
@@ -36,8 +33,8 @@ public class Menu {
     private int readAction() {
         int action = Console.getNumber("Please select your action? ");
 
-        if (action < 1 || action > Menu.items.size()) {
-            Console.out("Action number should be between 1 - " + Menu.items.size() + ", ");
+        if (action < 1 || action > this.items.size()) {
+            Console.out("Action number should be between 1 - " + this.items.size() + ", ");
             action = this.readAction();
         }
 
@@ -63,7 +60,7 @@ public class Menu {
     }
 
     private void render() {
-        for (String item : Menu.items) {
+        for (String item : this.items) {
             Console.out(item, 0, 1);
         }
     }
