@@ -3,8 +3,9 @@ package com.learning;
 public class Main {
 
     public static void main(String[] args) {
-        Menu menu = new Menu();
+        Console.out("Hello,");
+        Console.out(" Shahrokh!");
 
-        menu.execute();
+        Console.out("Output string after 2 lines and put cursor to the new line!", 2, 1);
     }
 }
